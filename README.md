@@ -1,1 +1,3 @@
-# Internet-Shop-with-payment-using-Django
+# Course Store Template
+
+Template for Django course
