@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from products.views import index
-from products.views import store
+from products.views import index, store
+
+# Name нужно задавать для динамических ссылок
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
-    path('store/', store)
+    path('', index, name="index"),
+    path('store/', store, name="store")
 ]
