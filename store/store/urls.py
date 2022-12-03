@@ -14,20 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 # Для работы с медиа нужно импортировать эти две библиотеки
 from django.conf.urls.static import static
 from django.conf import settings
 
-from products.views import index, store
+from products.views import index
 
 # Name нужно задавать для динамических ссылок
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="index"),
-    path('store/', store, name="store")
+    # include нужно импортировать из django.urls
+    path('products/', include('products.urls', namespace="products")),
+    path('users/', include('users.urls', namespace="users"))
 ]
 
 # Действия, чтобы были изображения, но локально

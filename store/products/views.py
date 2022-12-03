@@ -9,7 +9,7 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 
-def store(request):
+def products(request):
     context = {'title': 'Store - Каталог',
                'products': Product.objects.all(),
                'categories': ProductCategory.objects.all()
