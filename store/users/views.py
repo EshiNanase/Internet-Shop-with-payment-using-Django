@@ -1,9 +1,11 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from users.models import User
 from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
+from products.models import Basket
 
 
 def login(request):
@@ -42,6 +44,7 @@ def register(request):
     return render(request, 'users/register.html', context)
 
 
+@login_required
 def profile(request):
     title = 'Личный кабинет'
     if request.method == 'POST':
@@ -51,12 +54,15 @@ def profile(request):
             return HttpResponseRedirect(reverse('users:profile'))
         else:
             print(form.errors)
-    form = UserProfileForm(instance=request.user)
+    else:
+        form = UserProfileForm(instance=request.user)
     context = {'title': title,
-               'form': form}
+               'form': form,
+               'baskets': Basket.objects.filter(user=request.user)}
     return render(request, 'users/profile.html', context)
 
 
+@login_required
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))

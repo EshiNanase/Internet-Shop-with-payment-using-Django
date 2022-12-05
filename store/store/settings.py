@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',
-    'users',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # USERS
 
 AUTH_USER_MODEL = 'users.User'
+# указываем, чтобы писать декораторы без аргументов
+LOGIN_URL = '/users/login/'
