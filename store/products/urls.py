@@ -6,6 +6,8 @@ app_name = 'products'
 # сюда добавляются конкретные ссылки, например, на товары
 urlpatterns = [
     path('', products, name='index'),
+    path('category/<int:category_id>/', products, name='category'),
+    path('page/<int:page_number>/', products, name='paginator'),
     path('baskets/add/<int:product_id>/', basket_add, name='basket_add'),
     path('baskets/delete/<int:basket_id>/', basket_delete, name='basket_delete')
 ]
