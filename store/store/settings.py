@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DOMAIN_NAME = 'http://localhost:8000'
+
 
 # Application definition
 
@@ -64,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'products.context_processors.baskets'
             ],
         },
     },
@@ -136,3 +139,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 # указываем, чтобы писать декораторы без аргументов
 LOGIN_URL = '/users/login/'
+
+# указываем, чтобы работал LoginView, LogoutView
+LOGIN_REDIRECT_URL = '/'
+REDIRECT_FIELD_NAME = '/'
+
+# sending email
+
+EMAIL_HOST = 'smtp.yandex.com'
+EMAIL_PORT = '465'
+EMAIL_HOST_USER = 'ultimate.code.tester@yandex.ru'
+EMAIL_HOST_PASSWORD = 'piksasov2112'
+EMAIL_USE_SSL = True
