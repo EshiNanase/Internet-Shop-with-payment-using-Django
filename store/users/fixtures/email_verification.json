@@ -1,0 +1,1 @@
+[{"model": "users.emailverification", "pk": 7, "fields": {"code": "5009e1dd-afeb-49e6-97a3-753309420e0b", "user": 15, "created": "2022-12-08T09:40:00.590Z", "expiration": "2022-12-10T09:40:00.590Z"}}]

@@ -28,7 +28,8 @@ urlpatterns = [
     path('', IndexView.as_view(), name="index"),
     # include нужно импортировать из django.urls
     path('products/', include('products.urls', namespace="products")),
-    path('users/', include('users.urls', namespace="users"))
+    path('users/', include('users.urls', namespace="users")),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # Действия, чтобы были изображения, но локально

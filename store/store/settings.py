@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import _locale
+
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,8 +42,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # OAuth (добавляет в админку Сайты)
+    'django.contrib.sites',
+
+    # OAuth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+
     'products',
-    'users'
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -66,11 +78,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'products.context_processors.baskets'
+                'products.context_processors.baskets',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'store.wsgi.application'
 
@@ -80,11 +94,14 @@ WSGI_APPLICATION = 'store.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Store-Data',
+        'USER': 'store_username',
+        'PASSWORD': 'store_password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -151,3 +168,23 @@ EMAIL_PORT = '465'
 EMAIL_HOST_USER = 'ultimate.code.tester@yandex.ru'
 EMAIL_HOST_PASSWORD = 'piksasov2112'
 EMAIL_USE_SSL = True
+
+# указываем, чтобы отправка почты происходила в консоли
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# OAuth
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 2
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+            'SCOPE': [
+                'user',
+            ],
+    }
+}

@@ -1,0 +1,1 @@
+[{"model": "admin.logentry", "pk": 1, "fields": {"action_time": "2022-12-03T21:43:17.414Z", "user": 1, "content_type": 8, "object_id": "2", "object_repr": "Sasha", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 2, "fields": {"action_time": "2022-12-04T22:39:33.006Z", "user": 1, "content_type": 7, "object_id": "3", "object_repr": 
