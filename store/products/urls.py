@@ -13,4 +13,3 @@ urlpatterns = [
     path('baskets/add/<int:product_id>/', basket_add, name='basket_add'),
     path('baskets/delete/<int:basket_id>/', basket_delete, name='basket_delete')
 ]
-

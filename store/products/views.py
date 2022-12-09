@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render
+from django.shortcuts import HttpResponseRedirect, render
 # Импортируем для Class-Based Views
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
 # Свой миксин
@@ -82,4 +81,3 @@ def basket_delete(request, basket_id):
     basket.delete()
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
-

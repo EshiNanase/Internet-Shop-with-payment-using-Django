@@ -1,14 +1,11 @@
-from django.contrib import auth, messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import HttpResponseRedirect, render
+from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 
 from common.views import TitleMixin
-from products.models import Basket
 from users.forms import UserLoginForm, UserProfileForm, UserRegisterForm
 from users.models import EmailVerification, User
 
@@ -65,7 +62,6 @@ class UserLogoutView(LogoutView):
 #     return HttpResponseRedirect(reverse('index'))
 
 
-
 # def login(request):
 #     title = 'Store - Авторизация'
 #     if request.method == 'POST':
@@ -118,4 +114,3 @@ class UserLogoutView(LogoutView):
 #     context = {'form': form,
 #                'title': title}
 #     return render(request, 'users/register.html', context)
-

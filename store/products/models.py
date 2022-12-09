@@ -55,7 +55,8 @@ class Basket(models.Model):
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=0)
 
-    # Чтобы BasketQuerySet можно было использовать, как менеджер, используем эту команду, т.е. мы можем вызывать методы BasketQuerySet через модель Basket
+    # Чтобы BasketQuerySet можно было использовать, как менеджер, используем эту команду,
+    # т.е. мы можем вызывать методы BasketQuerySet через модель Basket
     objects = BasketQuerySet.as_manager()
 
     # Поле отвечающее за отображение времени и даты
