@@ -54,3 +54,14 @@ class UserRegistrationViewTestCase(TestCase):
 
         self.assertTrue(response.status_code, HTTPStatus.OK)
         self.assertContains(response, 'Пользователь с таким именем уже существует.', html=True)
+
+
+class UserLoginViewTestCase(TestCase):
+    path = reverse('users:login')
+
+    def test_view(self):
+        response = self.client.get(self.path)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context_data['title'], 'Store - Авторизация')
+        self.assertTemplateUsed(response, 'users/login.html')

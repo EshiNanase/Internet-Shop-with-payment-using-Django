@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # OAuth (добавляет в админку Сайты)
     'django.contrib.sites',
+    'debug_toolbar',
 
     # OAuth
     'allauth',
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'store.urls'
@@ -171,7 +173,7 @@ EMAIL_HOST_PASSWORD = 'piksasov2112'
 EMAIL_USE_SSL = True
 
 # указываем, чтобы отправка почты происходила в консоли
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # OAuth
 
@@ -189,3 +191,28 @@ SOCIALACCOUNT_PROVIDERS = {
             ],
     }
 }
+
+# django-debug-toolbar
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost'
+]
+
+# redis
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+
+# celery
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
