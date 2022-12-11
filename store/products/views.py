@@ -4,6 +4,7 @@ from django.shortcuts import HttpResponseRedirect, render
 # Импортируем для Class-Based Views
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
 
 # Свой миксин
 from common.views import TitleMixin
@@ -36,7 +37,6 @@ class ProductsListView(TitleMixin, ListView):
         else:
             context['categories'] = categories
         return context
-
 
 # def products(request, category_id=None, page_number=1):
 #     if category_id:

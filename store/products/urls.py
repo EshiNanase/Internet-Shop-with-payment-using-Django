@@ -12,5 +12,5 @@ urlpatterns = [
     path('category/<int:category_id>/', ProductsListView.as_view(), name='category'),
     path('page/<int:page>/', ProductsListView.as_view(), name='paginator'),
     path('baskets/add/<int:product_id>/', basket_add, name='basket_add'),
-    path('baskets/delete/<int:basket_id>/', basket_delete, name='basket_delete')
+    path('baskets/delete/<int:basket_id>/', basket_delete, name='basket_delete'),
 ]

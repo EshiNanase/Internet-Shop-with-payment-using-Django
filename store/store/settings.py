@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # OAuth (добавляет в админку Сайты)
     'django.contrib.sites',
     'debug_toolbar',
+    'django.contrib.humanize',
 
     # OAuth
     'allauth',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
 
     'products',
     'users',
+    'orders',
 ]
 
 MIDDLEWARE = [
