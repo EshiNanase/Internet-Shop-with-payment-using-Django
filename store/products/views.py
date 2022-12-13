@@ -4,7 +4,6 @@ from django.shortcuts import HttpResponseRedirect, render
 # Импортируем для Class-Based Views
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
 
 # Свой миксин
 from common.views import TitleMixin

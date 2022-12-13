@@ -1,6 +1,10 @@
+import stripe
 from django.db import models
 
+from store.settings import STRIPE_WEBHOOK_SECRET
 from users.models import User
+
+stripe.api_key = STRIPE_WEBHOOK_SECRET
 
 
 class ProductCategory(models.Model):
@@ -26,6 +30,7 @@ class Product(models.Model):
     # upload_to - on download this image should be saved somewhere
     # To work with images you need package Pillow
     image = models.ImageField(upload_to='products_images')
+    stripe_price = models.CharField(max_length=128, blank=True, null=True)
 
     # ForeignKey() - used for linking one model with another. to - what's the linked model.
     # on_delete - CASCADE => если ты удаляешь категорию, а в ней 50 товаров, то все товары тоже удалятся.
@@ -40,6 +45,21 @@ class Product(models.Model):
     def __str__(self):
         return f'Продукт: {self.name} | Категория: {self.category.name}'
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if not self.stripe_price:
+            stripe_product = self.create_stripe_product_price()
+            self.stripe_price = stripe_product['id']
+        super(Product, self).save(force_insert=False, force_update=False, using=None,
+                                  update_fields=None)
+
+    def create_stripe_product_price(self):
+        stripe_product = stripe.Product.create(name=self.name)
+        stripe_product_price = stripe.Price.create(
+            product=stripe_product['id'], unit_amount=round(self.price*100), currency="rub"
+        )
+        return stripe_product_price
+
 
 class BasketQuerySet(models.QuerySet):
 
@@ -48,6 +68,13 @@ class BasketQuerySet(models.QuerySet):
 
     def total_quantity(self):
         return sum(basket.quantity for basket in self)
+
+    def dict_baskets(self):
+        line_items = []
+        for basket in self:
+            line_items.append({'price': basket.product.stripe_price,
+                               'quantity': basket.quantity})
+        return line_items
 
 
 class Basket(models.Model):
@@ -67,3 +94,10 @@ class Basket(models.Model):
 
     def sum(self):
         return self.product.price * self.quantity
+
+    def json_basket(self):
+        basket_item = {'product_name': self.product.name,
+                       'quantity': self.quantity,
+                       'price': float(self.product.price),
+                       'sum': float(self.sum())}
+        return basket_item

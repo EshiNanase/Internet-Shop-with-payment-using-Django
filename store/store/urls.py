@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from orders.views import my_webhook_view
 from products.views import IndexView
 
 # Name нужно задавать для динамических ссылок
@@ -31,6 +32,7 @@ urlpatterns = [
     path('users/', include('users.urls', namespace="users")),
     path('accounts/', include('allauth.urls')),
     path('orders/', include('orders.urls', namespace="orders")),
+    path('webhook/stripe', my_webhook_view, name='stripe_webhook')
 ]
 
 # Действия, чтобы были изображения, но локально

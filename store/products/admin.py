@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'quantity', 'category')
     # Создаем переменную филдс и перечисляем в ней все поля, чтобы было красиво в админке
     # Чтобы в админке показывать несколько переменных на одной строке, нужно создать кортеж в кортеже
-    fields = ('name', 'description', ('price', 'quantity'), 'image', 'category')
+    fields = ('name', 'description', ('price', 'quantity'), 'image', 'stripe_price', 'category')
     # Переменная показывающая какие поля нельзя менять в админке
     readonly_fields = ('description',)
     # Поля для поиска в админке
