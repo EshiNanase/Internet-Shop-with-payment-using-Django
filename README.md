@@ -1,3 +1,1 @@
-# Course Store Template
-
-Template for Django course
+# Internet-Store on Django with payment
