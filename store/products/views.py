@@ -54,14 +54,6 @@ class ProductsListView(TitleMixin, ListView):
 
 
 @login_required
-def basket(request):
-    context = {
-        'title': 'Корзина'
-    }
-    return render(request, 'orders/order.html', context)
-
-
-@login_required
 def basket_add(request, product_id):
     # Продукт, который кладем в корзину
     product = Product.objects.get(id=product_id)

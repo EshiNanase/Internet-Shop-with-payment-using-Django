@@ -1,3 +1,4 @@
+import time
 from datetime import timedelta
 from http import HTTPStatus
 
@@ -6,6 +7,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 
 from users.models import EmailVerification, User
+from users.tasks import send_email_verification
 
 
 class UserRegistrationViewTestCase(TestCase):
@@ -39,6 +41,9 @@ class UserRegistrationViewTestCase(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertRedirects(response, reverse('users:login'))
         self.assertTrue(User.objects.filter(username=username))
+
+        # check celery
+        send_email_verification.apply(args=(User.objects.filter(username=username).first().id,))
 
         # check email verification
         email_verification = EmailVerification.objects.filter(user__username=username)
