@@ -18,6 +18,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+# framework
+from rest_framework.authtoken import views
 
 from orders.views import my_webhook_view
 from products.views import IndexView
@@ -32,7 +34,9 @@ urlpatterns = [
     path('users/', include('users.urls', namespace="users")),
     path('accounts/', include('allauth.urls')),
     path('orders/', include('orders.urls', namespace="orders")),
-    path('webhook/stripe', my_webhook_view, name='stripe_webhook')
+    path('webhook/stripe', my_webhook_view, name='stripe_webhook'),
+    path('api/', include('api.urls', namespace='api')),
+    path('api-token-auth/', views.obtain_auth_token)
 ]
 
 # Действия, чтобы были изображения, но локально

@@ -29,7 +29,7 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     # upload_to - on download this image should be saved somewhere
     # To work with images you need package Pillow
-    image = models.ImageField(upload_to='products_images')
+    image = models.ImageField(upload_to='products_images', null=True, blank=True)
     stripe_price = models.CharField(max_length=128, blank=True, null=True)
 
     # ForeignKey() - used for linking one model with another. to - what's the linked model.

@@ -1,8 +1,10 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 from django.urls import reverse, reverse_lazy
+
 from orders.models import Order
 from users.models import User
-from http import HTTPStatus
 
 
 class SuccessViewTestCase(TestCase):
@@ -77,4 +79,3 @@ class SpecificOrderTestCase(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, 'orders/order.html')
         self.assertEqual(response.context_data['title'], f'Store - Заказ №{self.order.id}')
-

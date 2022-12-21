@@ -34,7 +34,6 @@ class OrderCreateView(TitleMixin, CreateView):
     queryset = Basket.objects.all()
     form_class = OrderForm
     success_url = reverse_lazy('orders:create_order')
-    
     def post(self, request, *args, **kwargs):
         super(OrderCreateView, self).post(request, *args, **kwargs)
         baskets = Basket.objects.filter(user=self.request.user)

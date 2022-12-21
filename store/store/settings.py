@@ -14,7 +14,6 @@ from pathlib import Path
 
 import _locale
 import environ
-import os
 
 _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
 
@@ -79,12 +78,17 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'debug_toolbar',
     'django.contrib.humanize',
+    # django rest framework
+    'rest_framework',
+    'api',
+    'rest_framework.authtoken',
 
     # OAuth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+
 
     'products',
     'users',
@@ -270,3 +274,13 @@ CELERY_RESULT_BACKEND = f'redis://{REDIS_URL}:{REDIS_PORT}'
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
+
+# django rest framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
