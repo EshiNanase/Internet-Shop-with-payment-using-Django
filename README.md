@@ -1,1 +1,1 @@
-# Internet-Store on Django with payment
+# Online on Django with payment
